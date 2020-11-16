@@ -5,7 +5,7 @@ A demonstration of how angular apps can be structured.
 Assumes Node has already been installed, as well as the angular CLI.\
 https://cli.angular.io/
 
-## CLI comands to create components
+## CLI commands to create components
 
 ### Create App
 
@@ -17,10 +17,10 @@ This app can be run using ng serve and opening localhost:4200/ in a browser.
 
 ### Generate structure component
 
-Generate a componente named "structure". This will be the base of our app where we will display other components. \
+Generate a component named "structure". This will be the base of our app where we will display other components. \
 `ng generate component structure`
 
-This will create a "structure" folder in the src/app folder, and the files requred for the componet. The component has also been imported into the app.moduel.ts file.
+This will create a "structure" folder in the src/app folder, and the files required for the component. The component has also been imported into the app.module.ts file.
 
 Set the structure component as the starting point of our app, by placing its selector in the `app.component.html`
 
@@ -34,7 +34,7 @@ Generate a landing and navBar components in the structure folder. Shorthands `g`
 `ng g c structure/landing`\
 `ng g c structure/navBar`
 
-Add the navbar to the `structure.component.html`. The router outlet is where our componets will be displayed when we navigate to them. More on that below.
+Add the navbar to the `structure.component.html`. The router outlet is where our components will be displayed when we navigate to them. More on the router below.
 
 ```html
 <app-nav-bar></app-nav-bar> <router-outlet></router-outlet>
@@ -42,13 +42,13 @@ Add the navbar to the `structure.component.html`. The router outlet is where our
 
 ### Generate components
 
-Generate a few components to actually show some content.
-`ng g c components/widgetA`
+Generate a few components to actually show some content.\
+`ng g c components/widgetA`\
 `ng g c components/widgetB`
 
 ### Configure Routing
 
-The "routes" array in `src\app\app-routing.module.ts` maps a url path to a component
+The "routes" array in `src\app\app-routing.module.ts` maps a url path to a component.
 
 ```ts
 const routes: Routes = [
@@ -86,3 +86,8 @@ In `.vscode\settings.json` the set automatic formatting on save, and set the con
 
 To format all files, run the command:\
  `npx prettier --write .`
+
+## Recommended vsCode extensions
+- Angular Language Service
+- Code Spell Checker
+- GitLens

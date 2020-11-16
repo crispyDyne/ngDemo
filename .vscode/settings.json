@@ -1,4 +1,8 @@
 {
   "editor.formatOnSave": true,
-  "prettier.configPath": ".prettierrc"
+"prettier.configPath": ".prettierrc",
+"cSpell.words": [
+    "devkit",
+    "prettierrc"
+]
 }
