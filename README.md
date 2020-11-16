@@ -83,3 +83,6 @@ In `.vscode\settings.json` the set automatic formatting on save, and set the con
   "prettier.configPath": ".prettierrc"
 }
 ```
+
+To format all files, run the command:\
+ `npx prettier --write .`
