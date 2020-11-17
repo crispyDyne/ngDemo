@@ -10,13 +10,10 @@ import { DataService } from 'src/app/data.service';
 export class WidgetBComponent implements OnInit {
   constructor(private dataService: DataService) {}
 
-  data$: Observable<string[]>;
   inputText = 'Something New';
-  ngOnInit(): void {
-    this.data$ = this.dataService.data;
-  }
+  ngOnInit(): void {}
 
-  addData(): void {
+  onClick(): void {
     if (this.inputText.length > 0) {
       this.dataService.addData(this.inputText); // add text to data array
     }
