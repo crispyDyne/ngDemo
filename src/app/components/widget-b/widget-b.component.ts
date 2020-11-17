@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { DataService } from 'src/app/data.service';
 
 @Component({
@@ -9,15 +10,15 @@ import { DataService } from 'src/app/data.service';
 export class WidgetBComponent implements OnInit {
   constructor(private dataService: DataService) {}
 
-  data: string[];
+  data$: Observable<string[]>;
   inputText = 'Something New';
   ngOnInit(): void {
-    this.data = this.dataService.data;
+    this.data$ = this.dataService.data;
   }
 
   addData(): void {
     if (this.inputText.length > 0) {
-      this.dataService.data.push(this.inputText); // add text to data array
+      this.dataService.addData(this.inputText); // add text to data array
     }
     this.inputText = ''; // clear the text
   }

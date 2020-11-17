@@ -73,11 +73,33 @@ Add a service for sharing data between components
 Add some simple data to the data service here:
 `src\app\data.service.ts`
 ```ts
-  data = [
+  defaultData = [
     'First piece of default Data',
     'Second piece of default data'
     ];
 ```
+### Behavior Subject
+Create a private Behavior Subject and a public read only Observable that the components will to receive updated data.
+```ts
+  private _data: BehaviorSubject<string[]> = new BehaviorSubject(defaultData);
+  public readonly data: Observable<string[]> = this._data.asObservable();
+```
+Create a method for updating the data. When this function is called, it will add the new data to the old data and emit the combined set for the components to display.
+```ts
+  addData(newData): void {
+    const data = this._data.getValue(); // get current value
+    // This triggers an update in the other components!!!
+    this._data.next([...data, newData]); // update observable.
+  }
+```
+
+Observables are useful for ensuring a one way flow of data, and dealing with asynchronous tasks. Instead of our components having direct access to the data in the service. They get an Observable that updates whenever the data is changed inside the service.
+
+For more details, check out this [example service](https://blog.angular-university.io/how-to-build-angular2-apps-using-rxjs-observable-data-services-pitfalls-to-avoid/), or more about [RxJS in Angular](https://angular.io/guide/rx-library#naming-conventions-for-observables). 
+
+Observables and asynchronous code is a bit confusing and is certainly overkill for this example, but once the app gets bigger, or have to wait on slow processes (fetching data or long running calculations) they become very important. Observables are not specific to Angular, but Angular is built to take advantage of them.
+
+
 
 ### Display service data in a component
 Inject the data service into our components constructor. For example, in widgetA:
@@ -85,20 +107,22 @@ Inject the data service into our components constructor. For example, in widgetA
 ```ts
 constructor(private dataService: DataService) {}
 ngOnInit(): void {
-  this.data = this.dataService.data;
+  this.data$ = this.dataService.data;
 }
 ```
 
 Now use this data in widgetA's html template:
 `src\app\components\widget-a\widget-a.component.html`
 ```html
-<p *ngFor="let element of data">{{ element + '!' }}</p>
+<p *ngFor="let element of data$ | async">{{ element + '!' }}</p>
 ```
 There is a lot going on in this one line.
 
+`data$ | async` this "async pipe" is some Angular magic that takes the Observable provides updated data to the for loop every time data is updated in the data service. It is a style convention to use a `$` do indicate an observable. 
+
  `*ngFor` is an Angular structural directive, meaning it modifies the structure of the html document. In this case, it is a for loop that loops through the `data` array and creates `<p>` tags filled with the arrays elements.
 
- The `{{ ... }}` syntax is specific to Angular, and allows us to write code in the `<p>` tag. In the case above, for each `element` in the `data` array, which is a strings, add an exclamation point!
+ The `{{ ... }}` syntax is specific to Angular, and allows us to write code in the `<p>` tag. In the case above, for each `element` in the `data$` array, which is a strings, add an exclamation point!
 
 ### Modify the service data in a component
 Inject the data service into widgetB in the same way, but we also add an `inputText` property, and the method `addData` that add the inputText to the `data`.\

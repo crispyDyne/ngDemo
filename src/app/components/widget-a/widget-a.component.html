@@ -1,1 +1,1 @@
-<p *ngFor="let element of data">{{ element + '!' }}</p>
+<p *ngFor="let element of data$ | async">{{ element + '!' }}</p>
