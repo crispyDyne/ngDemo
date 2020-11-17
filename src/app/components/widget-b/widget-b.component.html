@@ -1,7 +1,10 @@
 <div>
     <input type="text" [(ngModel)]="inputText" value="inputText" />
-    <button (click)="onClick()">Add to data service</button>
+    <button (click)="addData()">Add to data service</button>
 </div>
 
 <hr />
 <p>{{ inputText }}</p>
+
+<hr />
+<p *ngFor="let element of data">{{ element + '!' }}</p>

@@ -101,7 +101,7 @@ There is a lot going on in this one line.
  The `{{ ... }}` syntax is specific to Angular, and allows us to write code in the `<p>` tag. In the case above, for each `element` in the `data` array, which is a strings, add an exclamation point!
 
 ### Modify the service data in a component
-Inject the data service into widgetB in the same way, but we also add an `inputText` property, and the method `onClick` that calls the data service method 'addData'.\
+Inject the data service into widgetB in the same way, but we also add an `inputText` property, and the method `addData` that add the inputText to the `data`.\
 `src\app\components\widget-b\widget-b.component.ts`
 
 Then add an input tag and button to widgetB's html template.\
@@ -109,7 +109,7 @@ Then add an input tag and button to widgetB's html template.\
 ```html
 <div>
     <input type="text" [(ngModel)]="inputText" value="inputText" />
-    <button (click)="onClick()">Add to data service</button>
+    <button (click)="addData()">Add to data service</button>
 </div>
 
 <hr />
@@ -120,7 +120,7 @@ Again, there is a lot going on here:\
 
 `value="inputText"` sets the initial value of the input field. This is normal html, not Angular specific.
 
-`(click)="onClick()"` binds the `onClick()` method to the `click` output of the button. Meaning, when we click the button, the `onClick` method will be called. This syntax IS Angular specific.
+`(click)="addData()"` binds the `addData()` method to the `click` output of the button. Meaning, when we click the button, the `addData` method will be called. This syntax is Angular specific.
 
 `<p>{{ inputText }}</p>` is displaying the current value of the component property `inputText`. This demonstrates that the `inputText` is being update when the text input changes.
 ## Prettier (optional)

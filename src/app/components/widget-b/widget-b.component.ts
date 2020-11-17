@@ -9,10 +9,13 @@ import { DataService } from 'src/app/data.service';
 export class WidgetBComponent implements OnInit {
   constructor(private dataService: DataService) {}
 
+  data: string[];
   inputText = 'Something New';
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.data = this.dataService.data;
+  }
 
-  onClick(): void {
+  addData(): void {
     if (this.inputText.length > 0) {
       this.dataService.data.push(this.inputText); // add text to data array
     }
