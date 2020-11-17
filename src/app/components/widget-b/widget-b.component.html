@@ -1,1 +1,7 @@
-<p>widget-b works!</p>
+<div>
+    <input type="text" [(ngModel)]="inputText" value="inputText" />
+    <button (click)="onClick()">Add to data service</button>
+</div>
+
+<hr />
+<p>{{ inputText }}</p>

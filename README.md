@@ -66,6 +66,63 @@ Add buttons in `src\app\structure\nav-bar\nav-bar.component.html` and assign the
 <button routerLink="/widgetB">widgetB</button>
 ```
 
+### Add a Service
+Add a service for sharing data between components
+`ng g s data`
+
+Add some simple data to the data service here:
+`src\app\data.service.ts`
+```ts
+  data = [
+    'First piece of default Data',
+    'Second piece of default data'
+    ];
+```
+
+### Display service data in a component
+Inject the data service into our components constructor. For example, in widgetA:
+`src\app\components\widget-a\widget-a.component.ts`
+```ts
+constructor(private dataService: DataService) {}
+ngOnInit(): void {
+  this.data = this.dataService.data;
+}
+```
+
+Now use this data in widgetA's html template:
+`src\app\components\widget-a\widget-a.component.html`
+```html
+<p *ngFor="let element of data">{{ element + '!' }}</p>
+```
+There is a lot going on in this one line.
+
+ `*ngFor` is an Angular structural directive, meaning it modifies the structure of the html document. In this case, it is a for loop that loops through the `data` array and creates `<p>` tags filled with the arrays elements.
+
+ The `{{ ... }}` syntax is specific to Angular, and allows us to write code in the `<p>` tag. In the case above, for each `element` in the `data` array, which is a strings, add an exclamation point!
+
+### Modify the service data in a component
+Inject the data service into widgetB in the same way, but we also add an `inputText` property, and the method `onClick` that calls the data service method 'addData'.\
+`src\app\components\widget-b\widget-b.component.ts`
+
+Then add an input tag and button to widgetB's html template.\
+`src\app\components\widget-b\widget-b.component.html`
+```html
+<div>
+    <input type="text" [(ngModel)]="inputText" value="inputText" />
+    <button (click)="onClick()">Add to data service</button>
+</div>
+
+<hr />
+<p>{{ inputText }}</p>
+```
+Again, there is a lot going on here:\
+`[(ngModel)]="inputText"` creates a two way connection between the component variable `inputText` and the value displayed in the input field. If we change the text in the input field, it will change the component variable, and the other way around. This is "two way binding" in Angular jargon. To use this special syntax, we need to import the `FormsModule` in `src\app\app.module.ts`.
+
+`value="inputText"` sets the initial value of the input field. This is normal html, not Angular specific.
+
+`(click)="onClick()"` binds the `onClick()` method to the `click` output of the button. Meaning, when we click the button, the `onClick` method will be called. This syntax IS Angular specific.
+
+`<p>{{ inputText }}</p>` is displaying the current value of the component property `inputText`. This demonstrates that the `inputText` is being update when the text input changes.
 ## Prettier (optional)
 
 Automating code formatting in vscode.

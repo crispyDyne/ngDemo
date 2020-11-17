@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from 'src/app/data.service';
 
 @Component({
   selector: 'app-widget-a',
@@ -6,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./widget-a.component.scss'],
 })
 export class WidgetAComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private dataService: DataService // Inject data service into this component
+  ) {}
 
-  ngOnInit(): void {}
+  data = []; // declare local data property and assign empty array
+
+  ngOnInit(): void {
+    this.data = this.dataService.data; // assign data in service to local property
+  }
 }
